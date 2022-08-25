@@ -1,0 +1,52 @@
+{
+	"variables": {
+		"name": "ubuntu-22.04.1",
+		"http_directory": "http",
+		"ssh_username": "ubuntu",
+		"ssh_password": "ubuntu",
+		"ssh_timeout": "2h"
+	},
+	"builders": [
+	{
+		"type": "hyperv-iso",
+		"boot_command": [
+			"<wait>e<wait2>",
+			"<down><wait><down><wait><down><wait>",
+			"<right><right><right><right><right><right><right><right><right><right>",
+			"<right><right><right><right><right><right><right><right><right><right>",
+			"<right><right><right>",
+			"<del><del><del><del><del><del><del><del><del><del>",
+			"<del><del><del><del><del><del><del><del><del><del>",
+			"<del><del><del><del><del><del><del><del><del><del>",
+			"<del><del><del><del><del><del><del><wait2>",
+			"<wait>noprompt url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg automatic<wait2><f10>"
+		],
+		"iso_url": "https://releases.ubuntu.com/22.04.1/ubuntu-22.04.1-desktop-amd64.iso",
+		"iso_checksum": "file:http://releases.ubuntu.com/22.04.1/SHA256SUMS",
+		"iso_target_path": "packer_cache/ubuntu-desktop.iso",
+		"communicator": "ssh",
+		"cpus": 2,
+		"memory": "4096",
+		"disk_size": "21440",
+		"headless": false,
+		"http_directory": "{{user `http_directory`}}",
+		"ssh_username": "{{user `ssh_username`}}",
+		"ssh_password": "{{user `ssh_password`}}",
+		"ssh_handshake_attempts": 500,
+		"ssh_wait_timeout": "45m",
+		"ssh_timeout": "45m",
+		"shutdown_command": "echo 'ubuntu' | sudo -S shutdown -P now",
+		"switch_name" : "Default Switch",
+		"generation": "2"
+	}
+	],
+	"provisioners": [
+	{
+		"type": "shell",
+		"execute_command": "echo 'ubuntu' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
+		"scripts": [
+			"cleanup.sh"
+		]
+	}
+	]
+}
