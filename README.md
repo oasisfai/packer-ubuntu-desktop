@@ -1,4 +1,4 @@
-# packer-ubuntu-desktop
+# Packer Ubuntu Desktop
 This repository contains a JSON template can be used to create Hyper-V gen-2 virtual machine. 
 
 ### Packer Verion
