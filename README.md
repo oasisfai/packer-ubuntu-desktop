@@ -5,7 +5,7 @@ This repository contains a JSON template can be used to create Hyper-V gen-2 vir
 Packer 1.8.2 or above is required.
 
 # Getting started
-ISO version of Ubuntu Desktop is used by default. run this template will automatically retrieve the iso from http://release.ubuntu.com.
+ISO version of Ubuntu Desktop is used by default. run this template will automatically retrieve the iso file from http://release.ubuntu.com.
 
 Run: 
 ```
